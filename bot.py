@@ -1,7 +1,14 @@
 import os
+import sys
 import discord
 from discord.ext import commands
 from openai import OpenAI
+
+# Debug: print what env variables are available (masking sensitive info)
+print("DEBUG: Checking environment variables...", flush=True)
+for key in ["OPENAI_API_KEY", "DISCORD_BOT_TOKEN", "OPENAI_MODEL", "SYSTEM_PROMPT", "PYTHON_VERSION"]:
+    val = os.environ.get(key)
+    print(f"{key}: {'SET' if val else 'NOT SET'} (length: {len(val) if val else 0})", flush=True)
 
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 DISCORD_BOT_TOKEN = os.environ.get("DISCORD_BOT_TOKEN")
@@ -12,4 +19,6 @@ SYSTEM_PROMPT = os.environ.get(
 )
 
 if not OPENAI_API_KEY or not DISCORD_BOT_TOKEN:
-    raise RuntimeError("Missing OPENAI_API_KEY or DISCORD_BOT_TOKEN env vars")
+    sys.exit("ERROR: Missing OPENAI_API_KEY or DISCORD_BOT_TOKEN env vars")
+
+client = OpenAI(api_key=OPENAI_API_KEY)
