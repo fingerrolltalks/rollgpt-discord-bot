@@ -26,3 +26,4 @@ A minimal Discord bot that connects to OpenAI to answer trading questions.
 ## Notes
 - This uses the modern OpenAI SDK (`openai>=1.0`) with the Responses API.
 - Keep your keys secret. Don't commit `.env` files to GitHub.
+# Rebuild trigger
